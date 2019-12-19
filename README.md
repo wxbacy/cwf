@@ -38,3 +38,14 @@ composer install
 ### 错误码设计
 
 六位数错误码，前两位表示所属模块，中间两位表示模块的一个业务子类，后两位表示子类里的一个具体错误。
+
+### 单元测试
+
+- 使用composer安装phpunit
+```
+composer global require phpunit/phpunit
+```
+- 把composer全局vendor的bin目录加入环境变量，默认应该是`/root/.config/composer/vendor/bin`
+- 简单使用：项目根目录的phpunit.xml是当前项目的phpunit配置文件，在根目录下执行`phpunit`命令无需参数即可测试
+- 详细使用参加[文档](http://www.phpunit.cn/)
+
