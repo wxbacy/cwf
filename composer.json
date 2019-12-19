@@ -1,0 +1,8 @@
+{
+    "require": {
+        "catfan/medoo": "^1.7",
+        "lcobucci/jwt": "^3.3",
+        "inhere/php-validate": "^2.7",
+        "php-curl-class/php-curl-class": "^8.6"
+    }
+}
