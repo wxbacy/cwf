@@ -6,6 +6,7 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
+use Yaf_Registry;
 
 /**
  * Token的各种操作，access_token,refresh_token，过期机制，刷新token等，多端共存，单端互斥
@@ -47,7 +48,7 @@ class Token
      */
     private function getKey()
     {
-        return \Yaf_Registry::get('config')->JWT->key;
+        return Yaf_Registry::get('config')->JWT->key;
     }
 
     /**

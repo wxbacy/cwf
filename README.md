@@ -31,8 +31,8 @@ composer install
 
 - 如果需要使用中间件，application/Bootstrap中注册plugin类，plugin类里编写对应代码。
 - 控制器层进行表单验证，调用service层的业务逻辑封装，json响应。
-- service层进行具体业务逻辑，调用对应model、cache、mq消息发送。
-- 根目录下的console里编写命令行执行的脚本，包括计划任务与队列消费脚本等。
+- service层文件夹划分模块，实现业务逻辑，调用dao数据对象和mq消息发送，dao层调用model、cache、http层。
+- 根目录下的script里编写命令行执行的脚本，包括计划任务与、队列消费脚和其他守护进程任务或者数据处理脚本等。
 - 根目录下的test里编写单元测试。
 
 ### 错误码设计
@@ -47,5 +47,5 @@ composer global require phpunit/phpunit
 ```
 - 把composer全局vendor的bin目录加入环境变量，默认应该是`/root/.config/composer/vendor/bin`
 - 简单使用：项目根目录的phpunit.xml是当前项目的phpunit配置文件，在根目录下执行`phpunit`命令无需参数即可测试
-- 详细使用参加[文档](http://www.phpunit.cn/)
+- 详细使用参考[文档](http://www.phpunit.cn/)
 
