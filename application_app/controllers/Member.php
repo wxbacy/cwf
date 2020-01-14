@@ -1,7 +1,7 @@
 <?php
 
 use Inhere\Validate\FieldValidation;
-use validation\MemberValidation;
+use library\validation\MemberValidation;
 use Curl\Curl;
 use mq\MemberMQ;
 
@@ -75,6 +75,7 @@ class MemberController extends BaseController
     public function demo5Action()
     {
         $memberMQ = new MemberMQ();
-        $memberMQ->publish(json_encode(['info' => 'it works']));
+        $message = $memberMQ->build('560652', '王小板爱吃鱼');
+        $memberMQ->publish($message);
     }
 }

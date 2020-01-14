@@ -79,4 +79,42 @@ class BaseMQ
         }
         return $mqConfig;
     }
+
+    /**
+     * 发送消息到exchange
+     *
+     * @param array string 消息数据
+     * @throws \AMQPChannelException
+     * @throws \AMQPConnectionException
+     * @throws \AMQPExchangeException
+     */
+    public function publish($message)
+    {
+        $channel = new \AMQPChannel($this->connection);
+        $exchange = new \AMQPExchange($channel);
+        $exchange->setName(static::EXCHANGE_NAME);
+        $exchange->publish(json_encode($message));
+        $this->connection->disconnect();
+    }
+
+    /**
+     * queue消费
+     *
+     * @param callable $callback 消费处理函数/方法
+     * @throws \AMQPChannelException
+     * @throws \AMQPConnectionException
+     * @throws \AMQPEnvelopeException
+     * @throws \AMQPQueueException
+     */
+    public function consume($queneName, callable $callback)
+    {
+        $channel = new \AMQPChannel($this->connection);
+        $queue = new \AMQPQueue($channel);
+        $queue->setName($queneName);
+        echo '[*] Waiting for messages. To exit press CTRL+C' . PHP_EOL;
+        while (true) {
+            $queue->consume($callback, AMQP_AUTOACK);
+        }
+        $this->connection->disconnect();
+    }
 }

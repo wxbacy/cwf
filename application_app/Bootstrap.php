@@ -15,6 +15,13 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
         Yaf_Registry::set('config', $arrConfig);
     }
 
+    public function _initLocalNamespace()
+    {
+        // 申明, 凡是以library开头的类, 都是本地类
+        $loader = Yaf_Loader::getInstance();
+        $loader->registerLocalNamespace('library');
+    }
+
     public function _initPlugin(Yaf_Dispatcher $dispatcher)
     {
         // 注册一个插件

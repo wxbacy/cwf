@@ -1,5 +1,7 @@
 <?php
 
+namespace http;
+
 /**
  * 高德地图api调用封装
  *

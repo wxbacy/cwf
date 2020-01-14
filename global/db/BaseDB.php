@@ -1,13 +1,17 @@
 <?php
 
+namespace db;
+
 use Medoo\Medoo;
+use Exception;
+use Yaf_Registry;
 
 /**
  * 模型基类，初始化medoo实例并实现单例
  *
  * @author chenwei
  */
-class BaseModel extends Medoo
+class BaseDB extends Medoo
 {
     /**
      * 默认连接名称

@@ -1,9 +1,9 @@
 <?php
 
-define('APPLICATION_PATH', dirname(dirname(__FILE__)));
+// 引入全局引导文件
+Yaf_Loader::import(dirname(dirname(__FILE__)) . '/bootstrap.php');
 
-// 引入composer的autoload.php
-Yaf_Loader::import(APPLICATION_PATH . '/vendor/autoload.php');
-
-$application = new Yaf_Application( APPLICATION_PATH . '/conf/application.ini');
-$application->bootstrap();
+$application = new Yaf_Application(ROOT_PATH . '/conf/application.ini');
+// 把配置保存起来
+$arrConfig = Yaf_Application::app()->getConfig();
+Yaf_Registry::set('config', $arrConfig);

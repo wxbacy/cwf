@@ -2,19 +2,21 @@
 
 require_once "./bootstrap.php";
 
+use db\UserDB;
+
 class Demo
 {
     public function demo1()
     {
-        $userModel = new UserModel();
-        $user = $userModel->getUser(1);
+        $userDB = new UserDB();
+        $user = $userDB->getUser(1);
         var_dump($user);
     }
 
     public function demo2($userId)
     {
-        $userModel = new UserModel();
-        $user = $userModel->getUser($userId);
+        $userDB = new UserDB();
+        $user = $userDB->getUser($userId);
         var_dump($user);
     }
 }

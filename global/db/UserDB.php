@@ -1,11 +1,15 @@
 <?php
 
+namespace db;
+
+use db\BaseDB;
+
 /**
  * 用户数据模型
  *
  * @author chenwei
  */
-class UserModel extends BaseModel
+class UserDB extends BaseDB
 {
     private $table = 'user';
 

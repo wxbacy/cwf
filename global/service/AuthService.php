@@ -2,8 +2,12 @@
 
 namespace service;
 
-use auth\Token;
 use cache\TokenCache;
+use Yaf_Registry;
+use Lcobucci\JWT\Builder;
+use Lcobucci\JWT\Signer\Key;
+use Lcobucci\JWT\Signer\Hmac\Sha256;
+use Lcobucci\JWT\Parser;
 
 /**
  * 身份验证业务
@@ -18,6 +22,9 @@ class AuthService
     // token有效时长，时间戳长度
     private $ttl;
 
+    // Hmac signatures key
+    private $key;
+
     /**
      * 初始化指定client
      *
@@ -26,6 +33,17 @@ class AuthService
     public function __construct($client)
     {
         $this->client = $client;
+        $this->key = $this->getKey();
+    }
+
+    /**
+     * 获取jwt签名密钥
+     *
+     * @return string
+     */
+    private function getKey()
+    {
+        return Yaf_Registry::get('config')->JWT->key;
     }
 
     /**
@@ -57,8 +75,15 @@ class AuthService
      */
     public function createToken($userId)
     {
-        $authToken = new Token($this->client);
-        $token = $authToken->create($userId);
+        $signer = new Sha256();
+        $time = time();
+
+        $token = (new Builder())->issuedBy($this->client) // Configures the issuer (iss claim)
+                                ->issuedAt($time) // Configures the time that the token was issue (iat claim)
+                                ->expiresAt(-1) // Configures the expiration time of the token (exp claim)
+                                ->withClaim('user_id', $userId) // Configures a new claim, called "user_id"
+                                ->getToken($signer, new Key($this->key)); // Retrieves the generated token
+        $token = strval($token);
 
         $tokenCache = new TokenCache($this->client, $this->tokenType, $userId);
         if (! $tokenCache->set($this->ttl, $token)) {
@@ -75,8 +100,8 @@ class AuthService
      */
     public function parseToken($token)
     {
-        $authToken = new Token($this->client);
-        return $authToken->parse($token);
+        $token = (new Parser())->parse((string) $token); // Parses from a string
+        return $token->getClaim('user_id');
     }
 
     /**

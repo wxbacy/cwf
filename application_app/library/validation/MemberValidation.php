@@ -1,6 +1,6 @@
 <?php
 
-namespace validation;
+namespace library\validation;
 
 use Inhere\Validate\FieldValidation;
 
