@@ -29,7 +29,7 @@ composer install
 
 ### 代码层级
 
-- 如果需要使用中间件，application/Bootstrap中注册plugin类，plugin类里编写对应代码。
+- 如果需要使用中间件，application_xxx/Bootstrap中注册plugin类，plugin类里编写对应代码。
 - 控制器层进行表单验证，调用service层的业务逻辑封装，json响应。
 - service层文件夹划分模块，实现业务逻辑，调用dao数据对象和mq消息发送，dao层调用model、cache、http层。
 - 根目录下的script里编写命令行执行的脚本，包括计划任务与、队列消费脚和其他守护进程任务或者数据处理脚本等。

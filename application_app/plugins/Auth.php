@@ -12,13 +12,15 @@ use service\AuthService;
 class AuthPlugin extends Yaf_Plugin_Abstract
 {
     const UNWANTED_AUTH_ROUTES = [
-        'Member.demo1',
-        'Member.demo2',
-        'Member.demo3',
-        'Member.demo4',
-        'Member.demo5'
+        'Index.Member.demo1',
+        'Index.Member.demo2',
+        'Index.Member.demo3',
+        'Index.Member.demo4',
+        'Index.Member.demo5',
+        'V1.User.getname',
     ];
 
+    private $module;
     private $controller;
     private $action;
 
@@ -31,10 +33,11 @@ class AuthPlugin extends Yaf_Plugin_Abstract
     public function routerShutdown(Yaf_Request_Abstract $request, Yaf_Response_Abstract $response)
     {
         // 根据模块名传递接口统计信息
+        $this->module = $request->getModuleName();
         $this->controller = $request->getControllerName();
         $this->action = $request->getActionName();
 
-        $currentRoute = $this->controller . '.' . $this->action;
+        $currentRoute = $this->module . '.' . $this->controller . '.' . $this->action;
 
         if (in_array($currentRoute, self::UNWANTED_AUTH_ROUTES)) {
             return;
