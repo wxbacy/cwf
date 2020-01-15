@@ -11,7 +11,8 @@ use Yaf_Registry;
  *
  * @author chenwei
  */
-class BaseDB extends Medoo
+class
+BaseDB extends Medoo
 {
     /**
      * 默认连接名称

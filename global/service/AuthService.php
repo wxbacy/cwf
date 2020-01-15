@@ -73,7 +73,7 @@ class AuthService
      * @return bool|string
      * @throws \Exception
      */
-    public function createToken($userId)
+    private function createToken($userId)
     {
         $signer = new Sha256();
         $time = time();

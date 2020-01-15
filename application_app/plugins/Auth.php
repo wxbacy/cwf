@@ -15,7 +15,7 @@ class AuthPlugin extends Yaf_Plugin_Abstract
         'Index.Member.demo1',
         'Index.Member.demo2',
         'Index.Member.demo3',
-        'Index.Member.demo4',
+        //'Index.Member.demo4',
         'Index.Member.demo5',
         'V1.User.getname',
     ];
@@ -46,19 +46,13 @@ class AuthPlugin extends Yaf_Plugin_Abstract
         // token验证
         // token使用，token使用header自定义参数
         if (empty($_SERVER['HTTP_TOKEN'])) {
-            throw new Exception(
-                ErrorCode::getMsg(GeneralCode::TOKEN_INVAILD),
-                ErrorCode::getCode(GeneralCode::TOKEN_INVAILD)
-            );
+            throw new Exception(ErrorCode::getMsg(GeneralCode::TOKEN_INVAILD), ErrorCode::getCode(GeneralCode::TOKEN_INVAILD));
         }
         $authService = new AuthService(strtolower($this->module));
         $authService->setTokenType('access_token');
         $userId = $authService->parseToken($_SERVER['HTTP_TOKEN']);
         if (! $authService->validateToken($userId, $_SERVER['HTTP_TOKEN'])) {
-            throw new Exception(
-                ErrorCode::getMsg(GeneralCode::TOKEN_INVAILD),
-                ErrorCode::getCode(GeneralCode::TOKEN_INVAILD)
-            );
+            throw new Exception(ErrorCode::getMsg(GeneralCode::TOKEN_INVAILD), ErrorCode::getCode(GeneralCode::TOKEN_INVAILD));
         }
     }
 }

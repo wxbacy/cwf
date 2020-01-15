@@ -1,5 +1,6 @@
 <?php
 
+use basic\Response;
 use Inhere\Validate\FieldValidation;
 use library\validation\MemberValidation;
 use Curl\Curl;
@@ -9,7 +10,7 @@ class MemberController extends BaseController
 {
     public function demo1Action()
     {
-        $this->success(['info' => 'it works']);
+        (new Response())->success(['info' => 'it works']);
     }
 
     public function demo2Action()

@@ -1,9 +1,11 @@
 <?php
 
-class UserController extends BaseController
+use basic\Response;
+
+class UserController extends Yaf_Controller_Abstract
 {
     public function getNameAction()
     {
-        $this->success(['username' => '王小板爱吃鱼']);
+        (new Response())->success(['username' => '王小板爱吃鱼']);
     }
 }
