@@ -35,4 +35,10 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
         // 前后分离，不需要渲染页面
         $dispatcher->autoRender(false);
     }
+
+    public function _initApplication()
+    {
+        // 定义当前所属应用
+        Yaf_Registry::set('application', 'app');
+    }
 }

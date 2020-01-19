@@ -26,4 +26,14 @@ class MobileCache extends BaseCache
         }
         echo 'all complete' . PHP_EOL;
     }
+
+    public function exist($mobile)
+    {
+        return $this->redis->sIsMember($this->key, $mobile);
+    }
+
+    public function add($mobile)
+    {
+        return $this->redis->sAdd($this->key, $mobile);
+    }
 }

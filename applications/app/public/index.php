@@ -1,6 +1,6 @@
 <?php
 
-define('APPLICATION_PATH', dirname(__FILE__) . '/../');
+define('APPLICATION_PATH', realpath(dirname(__FILE__). '/../') );
 
 // 引入全局引导文件
 Yaf_Loader::import(APPLICATION_PATH . '/../../bootstrap.php');

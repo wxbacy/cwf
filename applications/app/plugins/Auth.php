@@ -1,8 +1,8 @@
 <?php
 
-use code\ErrorCode;
-use code\GeneralCode;
-use service\AuthService;
+use error\GeneralError;
+use service\user\AuthService;
+use basic\Response;
 
 /**
  * 身份验证插件
@@ -12,12 +12,8 @@ use service\AuthService;
 class AuthPlugin extends Yaf_Plugin_Abstract
 {
     const UNWANTED_AUTH_ROUTES = [
-        'Index.Member.demo1',
-        'Index.Member.demo2',
-        'Index.Member.demo3',
-        //'Index.Member.demo4',
-        'Index.Member.demo5',
-        'V1.User.getname',
+        'Index.Index.index',
+        'User.Account.signup',
     ];
 
     private $module;
@@ -46,13 +42,18 @@ class AuthPlugin extends Yaf_Plugin_Abstract
         // token验证
         // token使用，token使用header自定义参数
         if (empty($_SERVER['HTTP_TOKEN'])) {
-            throw new Exception(ErrorCode::getMsg(GeneralCode::TOKEN_INVAILD), ErrorCode::getCode(GeneralCode::TOKEN_INVAILD));
+            (new Response())->error(GeneralError::TOKEN_INVAILD);
+            exit();
         }
-        $authService = new AuthService(strtolower($this->module));
-        $authService->setTokenType('access_token');
+        $authService = new AuthService();
+        $authService->setAppClient();
         $userId = $authService->parseToken($_SERVER['HTTP_TOKEN']);
         if (! $authService->validateToken($userId, $_SERVER['HTTP_TOKEN'])) {
-            throw new Exception(ErrorCode::getMsg(GeneralCode::TOKEN_INVAILD), ErrorCode::getCode(GeneralCode::TOKEN_INVAILD));
+            (new Response())->error(GeneralError::TOKEN_INVAILD);
+            exit();
         }
+        Yaf_Registry::set('current_user_id', $userId);
+
+        $authService->refreshTokenExpire($userId);
     }
 }

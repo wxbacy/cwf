@@ -28,4 +28,19 @@ class UserDB extends BaseDB
             'user_id' => $userId
         ]);
     }
+
+    public function existMobile($mobile)
+    {
+        return $this->has($this->table, ['mobile' => $mobile]);
+    }
+
+    public function add($mobile, $password)
+    {
+        $this->insert($this->table, [
+            'mobile' => $mobile,
+            'password' => $password,
+            'created_at' => time()
+        ]);
+        return $this->id();
+    }
 }

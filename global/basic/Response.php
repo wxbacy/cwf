@@ -2,8 +2,8 @@
 
 namespace basic;
 
-use code\ErrorCode;
-use code\GeneralCode;
+use error\Error;
+use error\GeneralError;
 use Yaf_Response_Http;
 use stdClass;
 
@@ -53,10 +53,18 @@ class Response
         return $this;
     }
 
+    /**
+     * 响应过滤处理，msg优先级 传参>error定义 业务类型错误码error必须定义msg
+     *
+     * @param $errorConstant
+     * @param $data
+     * @param $msg
+     * @return $this
+     */
     private function filter($errorConstant, $data, $msg)
     {
-        $this->code = ErrorCode::getCode($errorConstant);
-        $this->msg = $msg ?: ErrorCode::getMsg($errorConstant);
+        $this->code = Error::getCode($errorConstant);
+        $this->msg = $msg ?: Error::getMsg($errorConstant);
         $this->data = $data;
 
         return $this;
@@ -69,9 +77,9 @@ class Response
      * @param string $msg 提示字符串
      * @return void
      */
-    public function success(array $data = [], string $msg = '')
+    public function success(array $data = [], $msg = '')
     {
-        $this->filter(GeneralCode::SUCCESS, $data, $msg)->format()->json();
+        $this->filter(GeneralError::SUCCESS, $data, $msg)->format()->json();
     }
 
     /**
@@ -85,19 +93,5 @@ class Response
     public function error($errorConstant, $msg = '', $data = [])
     {
         $this->filter($errorConstant, $data, $msg)->format()->json();
-    }
-
-    /**
-     * 异常响应
-     *
-     * @param $code
-     * @param $msg
-     * @return void
-     */
-    public function exception($code, $msg)
-    {
-        $this->code = $code;
-        $this->msg = $msg;
-        $this->format()->json();
     }
 }

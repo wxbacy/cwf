@@ -1,6 +1,6 @@
 <?php
 
-namespace service;
+namespace service\user;
 
 use cache\TokenCache;
 use Yaf_Registry;
@@ -8,16 +8,17 @@ use Lcobucci\JWT\Builder;
 use Lcobucci\JWT\Signer\Key;
 use Lcobucci\JWT\Signer\Hmac\Sha256;
 use Lcobucci\JWT\Parser;
+use Exception;
 
 /**
- * 身份验证业务
+ * 身份验证
  *
  * @author chenwei
  */
 class AuthService
 {
-    // 所属端：app admin...
-    private $client;
+    // 所属应用：app admin...
+    private $application;
 
     // token有效时长，时间戳长度
     private $ttl;
@@ -25,15 +26,26 @@ class AuthService
     // Hmac signatures key
     private $key;
 
-    /**
-     * 初始化指定client
-     *
-     * @param $client string app admin...
-     */
-    public function __construct($client)
+    public function __construct($application = '')
     {
-        $this->client = $client;
+        if ($application) {
+            $this->application = $application;
+        } else {
+            $this->application = Yaf_Registry::get('application');
+        }
         $this->key = $this->getKey();
+    }
+
+    public function setAppClient()
+    {
+        $this->client = 'app';
+        $this->ttl = 86400 * 7;
+    }
+
+    public function setAdminClient()
+    {
+        $this->client = 'admin';
+        $this->ttl = 3600;
     }
 
     /**
@@ -47,47 +59,27 @@ class AuthService
     }
 
     /**
-     * 设置token有效时长
-     *
-     * @param $ttl number
-     */
-    public function setTTL($ttl)
-    {
-        $this->ttl = $ttl;
-    }
-
-    /**
-     * 设置token类型
-     *
-     * @param $tokenType string access_token/refresh_token
-     */
-    public function setTokenType($tokenType)
-    {
-        $this->tokenType = $tokenType;
-    }
-
-    /**
      * 生成token
      *
      * @param $userId
      * @return bool|string
      * @throws \Exception
      */
-    private function createToken($userId)
+    public function createToken($userId)
     {
         $signer = new Sha256();
         $time = time();
 
-        $token = (new Builder())->issuedBy($this->client) // Configures the issuer (iss claim)
+        $token = (new Builder())->issuedBy($this->application) // Configures the issuer (iss claim)
                                 ->issuedAt($time) // Configures the time that the token was issue (iat claim)
                                 ->expiresAt(-1) // Configures the expiration time of the token (exp claim)
                                 ->withClaim('user_id', $userId) // Configures a new claim, called "user_id"
                                 ->getToken($signer, new Key($this->key)); // Retrieves the generated token
         $token = strval($token);
 
-        $tokenCache = new TokenCache($this->client, $this->tokenType, $userId);
+        $tokenCache = new TokenCache($this->application, $userId);
         if (! $tokenCache->set($this->ttl, $token)) {
-            return false;
+            throw new Exception('token生成失败');
         }
         return $token;
     }
@@ -114,7 +106,7 @@ class AuthService
      */
     public function validateToken($userId, $token)
     {
-        $tokenCache = new TokenCache($this->client, $this->tokenType, $userId);
+        $tokenCache = new TokenCache($this->application, $userId);
         return $tokenCache->isLive($token);
     }
 
@@ -127,7 +119,19 @@ class AuthService
      */
     public function invalidToken($userId)
     {
-        $tokenCache = new TokenCache($this->client, $this->tokenType, $userId);
+        $tokenCache = new TokenCache($this->application, $userId);
         return $tokenCache->del();
+    }
+
+    /**
+     * 刷新token有效期
+     *
+     * @param $userId
+     * @return bool
+     */
+    public function refreshTokenExpire($userId)
+    {
+        $tokenCache = new TokenCache($this->application, $userId);
+        $tokenCache->expire($this->ttl);
     }
 }

@@ -3,6 +3,7 @@
 namespace cache;
 
 use cache\BaseCache;
+use mysql_xdevapi\Exception;
 
 /**
  * 用户token缓存
@@ -14,21 +15,14 @@ class TokenCache extends BaseCache
     private $key;
 
     /**
-     * 连接名称，不定义默认使用配置文件里的default
-     *
-     * @var string
-     */
-    protected static $linkName = 'demo';
-
-    /**
      * 在这里初始化key值
      *
      * @throws \Exception
      */
-    public function __construct($client, $tokenType, $userId)
+    public function __construct($client, $userId)
     {
         parent::__construct();
-        $this->key = $client . '_' . $tokenType . '_' . $userId;
+        $this->key = $client . '_' . $userId;
     }
 
     /**
@@ -62,5 +56,18 @@ class TokenCache extends BaseCache
     public function del()
     {
         return $this->redis->del($this->key);
+    }
+
+    /**
+     * 设置token有效期
+     *
+     * @param $ttl
+     * @return bool
+     */
+    public function expire($ttl)
+    {
+        if ($this->redis->expire($this->key, $ttl)) {
+            throw new Exception('刷新token缓存有效期失败');
+        }
     }
 }

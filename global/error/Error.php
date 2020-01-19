@@ -1,13 +1,13 @@
 <?php
 
-namespace code;
+namespace error;
 
 /**
  * 错误码相关操作
  *
  * @author chenwei
  */
-class ErrorCode
+class Error
 {
     /**
      * 获取错误码
@@ -28,6 +28,6 @@ class ErrorCode
      */
     public static function getMsg($error)
     {
-        return $error['msg'];
+        return isset($error['msg']) ? $error['msg'] : '';
     }
 }

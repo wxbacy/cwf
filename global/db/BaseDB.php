@@ -5,14 +5,14 @@ namespace db;
 use Medoo\Medoo;
 use Exception;
 use Yaf_Registry;
+use PDO;
 
 /**
  * 模型基类，初始化medoo实例并实现单例
  *
  * @author chenwei
  */
-class
-BaseDB extends Medoo
+class BaseDB extends Medoo
 {
     /**
      * 默认连接名称
@@ -35,6 +35,7 @@ BaseDB extends Medoo
             $linkName = $this->getLinkName();
             $dbConfig = $this->getConf($linkName);
             parent::__construct($dbConfig);
+            $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $dbConnecter = $this->pdo;
         }
     }

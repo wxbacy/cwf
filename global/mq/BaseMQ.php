@@ -2,8 +2,6 @@
 
 namespace mq;
 
-use code\ErrorCode;
-use code\GeneralCode;
 use Exception;
 use AMQPConnection;
 use Yaf_Registry;
@@ -35,7 +33,7 @@ class BaseMQ
         $mqConfig = $this->getConf($linkName);
         $connection = new AMQPConnection($mqConfig);
         if (! $connection->connect()) {
-            throw new Exception('Cannot connect to the broker!', ErrorCode::getCode(GeneralCode::AMQP_CONNECT_FAIL));
+            throw new Exception('Cannot connect to the broker!');
         }
         $this->connection = $connection;
     }
