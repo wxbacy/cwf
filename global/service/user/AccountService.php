@@ -20,7 +20,8 @@ class AccountService
      */
     public function existMobile($mobile)
     {
-        return (new UserDAO())->existMobile($mobile);
+        $userDAO = new UserDAO();
+        return $userDAO->existMobile($mobile);
     }
 
     /**
@@ -30,10 +31,11 @@ class AccountService
      * @param $password
      * @return int 用户id
      */
-    public function add($mobile, $password)
+    public function signUp($mobile, $formPassword)
     {
         $userDAO = new UserDAO();
-        $userId = $userDAO->add($mobile, $password);
+        $dbPassword = $this->encryptPassword($formPassword);
+        $userId = $userDAO->add($mobile, $dbPassword);
 
         // MQ用户注册事件
         $signUpMQ = new SignUpMQ();
@@ -43,4 +45,67 @@ class AccountService
         return $userId;
     }
 
+    /**
+     * 密码加密，使用客户端md5后拼接盐值，再进行一次md5
+     *
+     * @param $formPassword
+     * @return string
+     */
+    private function encryptPassword($formPassword)
+    {
+        return md5($formPassword . 'WZLY');
+    }
+
+    /**
+     * 登录
+     *
+     * @param $userId
+     * @return bool|string
+     */
+    public function signIn($userId)
+    {
+        // 生成token
+        $authService = new AuthService();
+        $authService->setAppClient();
+        return $authService->createToken($userId);
+    }
+
+    /**
+     * 注销登录
+     *
+     * @param $userId
+     * @throws \Exception
+     */
+    public function signOut($userId)
+    {
+        $authService = new AuthService();
+        $authService->setAppClient();
+        $authService->invalidToken($userId);
+    }
+
+    /**
+     * 验证手机号的密码
+     *
+     * @param $mobile
+     * @param $password
+     * @return bool
+     */
+    public function validatePassword($mobile, $formPassword)
+    {
+        $userDAO = new UserDAO();
+        $dbPassword = $userDAO->getPassword($mobile);
+        return $this->encryptPassword($formPassword) === $dbPassword;
+    }
+
+    /**
+     * 获取用户id
+     *
+     * @param $mobile
+     * @return 用户id
+     */
+    public function getUserId($mobile)
+    {
+        $userDAO = new UserDAO();
+        return $userDAO->getUserId($mobile);
+    }
 }

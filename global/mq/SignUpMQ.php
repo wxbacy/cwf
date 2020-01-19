@@ -3,6 +3,7 @@
 namespace mq;
 
 use mq\BaseMQ;
+use Yaf_Registry;
 
 /**
  * 注册事件exchange的相关数据的定义

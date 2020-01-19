@@ -11,17 +11,22 @@ use basic\Response;
  */
 class AuthPlugin extends Yaf_Plugin_Abstract
 {
+    // 以下路由无需token
     const UNWANTED_AUTH_ROUTES = [
         'Index.Index.index',
         'User.Account.signup',
+        'User.Account.signin',
     ];
 
+    // 当前路由模块
     private $module;
+    // 当前路由控制器
     private $controller;
+    // 当前路由方法
     private $action;
 
     /**
-     * 路由结束之后触发
+     * 路由结束之后触发，token校验
      *
      * @param Yaf_Request_Abstract $request
      * @param Yaf_Response_Abstract $response

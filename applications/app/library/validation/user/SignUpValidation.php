@@ -3,6 +3,7 @@
 namespace library\validation\user;
 
 use Inhere\Validate\FieldValidation;
+use Yaf_Config_Ini;
 
 /**
  * 注册表单验证
@@ -15,8 +16,8 @@ class SignUpValidation extends FieldValidation
     public function rules() :array
     {
         return [
-            ['mobile', 'required|regexp', '/^1\d{10}$/'],
-            ['password', 'required|regexp', '/^\w{6,16}$/'],
+            ['mobile', 'required|regexp', (new Yaf_Config_Ini(CONF_PATH . '/regex.ini'))->get('mobile')],
+            ['password', 'required|regexp', (new Yaf_Config_Ini(CONF_PATH . '/regex.ini'))->get('password')],
         ];
     }
 }

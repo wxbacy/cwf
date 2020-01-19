@@ -32,4 +32,18 @@ class UserDAO
 
         return $userid;
     }
+
+    // 获取用户密码
+    public function getPassword($mobile)
+    {
+        $userDB = new UserDB();
+        return $userDB->getPassword($mobile);
+    }
+
+    // 获取用户id
+    public function getUserId($mobile)
+    {
+        $userDB = new UserDB();
+        return $userDB->getUserId($mobile);
+    }
 }
