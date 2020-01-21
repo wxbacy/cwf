@@ -94,6 +94,7 @@ class AccountService
     {
         $userDAO = new UserDAO();
         $dbPassword = $userDAO->getPassword($mobile);
+
         return $this->encryptPassword($formPassword) === $dbPassword;
     }
 

@@ -2,8 +2,6 @@
 
 namespace cache;
 
-use cache\BaseCache;
-
 /**
 * 使用redis锁限制并发访问类
 *

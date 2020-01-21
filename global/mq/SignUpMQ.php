@@ -2,7 +2,6 @@
 
 namespace mq;
 
-use mq\BaseMQ;
 use Yaf_Registry;
 
 /**

@@ -2,8 +2,6 @@
 
 namespace db;
 
-use db\BaseDB;
-
 /**
  * 用户数据模型
  *
@@ -12,8 +10,6 @@ use db\BaseDB;
 class UserDB extends BaseDB
 {
     private $table = 'user';
-
-
 
     // 获取用户信息
     public function getUser($userId)

@@ -2,8 +2,7 @@
 
 namespace cache;
 
-use cache\BaseCache;
-use mysql_xdevapi\Exception;
+use Exception;
 
 /**
  * 用户token缓存

@@ -2,8 +2,6 @@
 
 namespace cache;
 
-use cache\BaseCache;
-
 /**
  * 用户token缓存
  *
