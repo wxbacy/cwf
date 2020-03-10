@@ -1,0 +1,68 @@
+<?php Yaf_Loader::import(PUBLIC_PATH . "/common/dialog.html");?>
+<body>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <!-- left column -->
+            <div class="col-md-6">
+                <!-- general form elements -->
+                <div class="box box-primary">
+                    <!-- /.box-header -->
+                    <!-- form start -->
+                    <form>
+                        <div class="box-body">
+                            <input type="hidden" name="admin_user_id" />
+                            <div class="input-group">
+                                <span class="input-group-addon">用户名</span> <input type="text" class="form-control" name="account" placeholder="用户名" required>
+                            </div>
+                            <br>
+                            <div class="input-group">
+                                <span class="input-group-addon">密码</span> <input type="password" class="form-control" name="password" placeholder="密码" required>
+                            </div>
+                        </div>
+                        <!-- /.box-body -->
+                        <div class="box-footer">
+                            <button type="submit" class="btn btn-primary pull-right">提交</button>
+                        </div>
+                    </form>
+                </div>
+                <!-- /.box -->
+            </div>
+            <!--/.col (right) -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+</div>
+<script src="/assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<script src="/assets/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/plugins/fastclick/fastclick.js"></script>
+<script src="/assets/plugins/layer-v3.1.0/layer/layer.js"></script>
+<script src="/assets/dist/js/global.js?<?=time()?>"></script>
+<script type="text/javascript">
+    var user = <?=json_encode($user)?>;
+    if (typeof(user.admin_user_id) != 'undefined'){
+        $("input[name='admin_user_id']").val(user.admin_user_id);
+        $("input[name='account']").val(user.account);
+        $("input[name='password']").val(user.password);
+    }
+
+    $("form").submit(function(){
+        var self = $(this);
+        ajaxRequest("/system/user/save", 'POST', self.serialize(), function(data){
+            if(data.code == 0){
+                layerParentMsg('保存成功');
+                var index = parent.layer.getFrameIndex(window.name);
+                parent.search(false);
+                parent.layer.close(index);
+            }else{
+                layerMsg(data.msg);
+            }
+        });
+        return false;
+    });
+</script>
+</body>
+</html>

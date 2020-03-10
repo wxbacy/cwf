@@ -45,8 +45,8 @@ class AccountController extends Yaf_Controller_Abstract
     {
         $v = Validation::check($this->getRequest()->getPost(), [
             ['mobile, password', 'required'],
-            ['mobile', 'regexp', (new Yaf_Config_Ini(CONF_PATH . '/regex.ini'))->get('mobile')],
-            ['password', 'regexp', (new Yaf_Config_Ini(CONF_PATH . '/regex.ini'))->get('password')],
+            ['mobile', 'regexp', Yaf_Registry::get('regex')->mobile],
+            ['password', 'regexp', Yaf_Registry::get('regex')->password],
         ]);
         if ($v->isFail()) {
             (new Response())->error(GeneralError::PARAMS_ERROR, $v->firstError());

@@ -11,8 +11,10 @@ class Bootstrap extends Yaf_Bootstrap_Abstract
     public function _initConfig()
     {
         // 把配置保存起来
-        $arrConfig = Yaf_Application::app()->getConfig();
-        Yaf_Registry::set('config', $arrConfig);
+        $appConfig = Yaf_Application::app()->getConfig();
+        Yaf_Registry::set('config', $appConfig);
+        $regexConfig = (new Yaf_Config_Ini(CONF_PATH . '/regex.ini'));
+        Yaf_Registry::set('regex', $regexConfig);
     }
 
     public function _initLocalNamespace()

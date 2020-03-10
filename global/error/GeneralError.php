@@ -3,7 +3,7 @@
 namespace error;
 
 /**
- * 全局错误码，x10开头
+ * 全局错误码，10开头
  *
  * @author chenwei
  */

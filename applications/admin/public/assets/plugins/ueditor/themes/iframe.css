@@ -1,0 +1,8 @@
+/*可以在这里添加你自己的css*/
+body table,
+body td {
+    width: 100% !important;
+}
+body img {
+    max-width: 100% !important;
+}

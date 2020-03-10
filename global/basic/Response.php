@@ -94,4 +94,30 @@ class Response
     {
         $this->filter($errorConstant, $data, $msg)->format()->json();
     }
+
+    public function nativeJson($resp)
+    {
+        $this->body = json_encode($resp);
+        $this->json();
+    }
+
+    /**
+     * 404 NOT FOUND
+     *
+     * @return void
+     */
+    public function notFound()
+    {
+        header("HTTP/1.1 404 Not Found");
+        echo "<!DOCTYPE html>
+              <html>
+                <head>
+                  <meta charset='UTF-8'>
+                </head>
+                <body>
+                  <h2>We are sorry, the page you requested cannot be found.</h2>
+                  <p>The URL may be misspelled or the page you're looking for is no longer available.</p>
+                </body>
+              </html>";
+    }
 }

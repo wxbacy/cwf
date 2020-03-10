@@ -1,0 +1,240 @@
+[
+    {
+        "name": "catfan/medoo",
+        "version": "v1.7.7",
+        "version_normalized": "1.7.7.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/catfan/Medoo.git",
+            "reference": "d7aa617f8c4e2437b32f788f24adea01202032de"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/catfan/Medoo/zipball/d7aa617f8c4e2437b32f788f24adea01202032de",
+            "reference": "d7aa617f8c4e2437b32f788f24adea01202032de",
+            "shasum": ""
+        },
+        "require": {
+            "ext-pdo": "*",
+            "php": ">=5.4"
+        },
+        "suggest": {
+            "ext-pdo_dblib": "For MSSQL or Sybase database on Linux/UNIX platform",
+            "ext-pdo_mysql": "For MySQL or MariaDB database",
+            "ext-pdo_oci": "For Oracle database",
+            "ext-pdo_oci8": "For Oracle version 8 database",
+            "ext-pdo_pqsql": "For PostgreSQL database",
+            "ext-pdo_sqlite": "For SQLite database",
+            "ext-pdo_sqlsrv": "For MSSQL database on both Window/Liunx platform"
+        },
+        "time": "2019-12-09T16:48:57+00:00",
+        "type": "framework",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Medoo\\": "/src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "Angel Lai",
+                "email": "angel@catfan.me"
+            }
+        ],
+        "description": "The lightweight PHP database framework to accelerate development",
+        "homepage": "https://medoo.in",
+        "keywords": [
+            "database",
+            "database library",
+            "lightweight",
+            "mariadb",
+            "mssql",
+            "mysql",
+            "oracle",
+            "php framework",
+            "postgresql",
+            "sql",
+            "sqlite"
+        ]
+    },
+    {
+        "name": "inhere/php-validate",
+        "version": "v2.7.3",
+        "version_normalized": "2.7.3.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/inhere/php-validate.git",
+            "reference": "eb5fa57cbbd41c90bd557a01006963fd65f39707"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/inhere/php-validate/zipball/eb5fa57cbbd41c90bd557a01006963fd65f39707",
+            "reference": "eb5fa57cbbd41c90bd557a01006963fd65f39707",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">7.1.0"
+        },
+        "require-dev": {
+            "phpunit/phpunit": "^7.5"
+        },
+        "time": "2019-11-15T11:54:00+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Inhere\\Validate\\": "src/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "MIT"
+        ],
+        "authors": [
+            {
+                "name": "inhere",
+                "email": "in.798@qq.com",
+                "homepage": "http://www.yzone.net/"
+            }
+        ],
+        "description": "an simple validate, filter library of the php",
+        "homepage": "https://github.com/inhere/php-validate",
+        "keywords": [
+            "form-validate",
+            "library",
+            "php-library",
+            "validate",
+            "validation"
+        ]
+    },
+    {
+        "name": "lcobucci/jwt",
+        "version": "3.3.1",
+        "version_normalized": "3.3.1.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/lcobucci/jwt.git",
+            "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/lcobucci/jwt/zipball/a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+            "reference": "a11ec5f4b4d75d1fcd04e133dede4c317aac9e18",
+            "shasum": ""
+        },
+        "require": {
+            "ext-mbstring": "*",
+            "ext-openssl": "*",
+            "php": "^5.6 || ^7.0"
+        },
+        "require-dev": {
+            "mikey179/vfsstream": "~1.5",
+            "phpmd/phpmd": "~2.2",
+            "phpunit/php-invoker": "~1.1",
+            "phpunit/phpunit": "^5.7 || ^7.3",
+            "squizlabs/php_codesniffer": "~2.3"
+        },
+        "time": "2019-05-24T18:30:49+00:00",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-master": "3.1-dev"
+            }
+        },
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Lcobucci\\JWT\\": "src"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Luís Otávio Cobucci Oblonczyk",
+                "email": "lcobucci@gmail.com",
+                "role": "Developer"
+            }
+        ],
+        "description": "A simple library to work with JSON Web Token and JSON Web Signature",
+        "keywords": [
+            "JWS",
+            "jwt"
+        ]
+    },
+    {
+        "name": "php-curl-class/php-curl-class",
+        "version": "8.6.2",
+        "version_normalized": "8.6.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/php-curl-class/php-curl-class.git",
+            "reference": "54be433a7299c15b024ba808e10a96c5d5791d99"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/php-curl-class/php-curl-class/zipball/54be433a7299c15b024ba808e10a96c5d5791d99",
+            "reference": "54be433a7299c15b024ba808e10a96c5d5791d99",
+            "shasum": ""
+        },
+        "require": {
+            "ext-curl": "*",
+            "php": ">=5.3"
+        },
+        "require-dev": {
+            "ext-gd": "*",
+            "phpunit/phpunit": "*",
+            "squizlabs/php_codesniffer": "*"
+        },
+        "suggest": {
+            "ext-mbstring": "*"
+        },
+        "time": "2019-11-17T08:37:31+00:00",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-4": {
+                "Curl\\": "src/Curl/"
+            }
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "Unlicense"
+        ],
+        "authors": [
+            {
+                "name": "Zach Borboa"
+            }
+        ],
+        "description": "PHP Curl Class makes it easy to send HTTP requests and integrate with web APIs.",
+        "homepage": "https://github.com/php-curl-class/php-curl-class",
+        "keywords": [
+            "API-Client",
+            "api",
+            "class",
+            "client",
+            "curl",
+            "framework",
+            "http",
+            "http-client",
+            "http-proxy",
+            "json",
+            "php",
+            "php-curl",
+            "php-curl-library",
+            "proxy",
+            "requests",
+            "restful",
+            "web-scraper",
+            "web-scraping ",
+            "web-service",
+            "xml"
+        ]
+    }
+]

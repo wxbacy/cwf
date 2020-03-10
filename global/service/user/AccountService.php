@@ -4,6 +4,7 @@ namespace service\user;
 
 use dao\UserDAO;
 use mq\SignUpMQ;
+use Yaf_Registry;
 
 /**
  * 用户账户业务
@@ -53,7 +54,7 @@ class AccountService
      */
     private function encryptPassword($formPassword)
     {
-        return md5($formPassword . 'WZLY');
+        return md5($formPassword . Yaf_Registry::get('config')->password->salt);
     }
 
     /**
