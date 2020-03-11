@@ -19,7 +19,6 @@ class AuthPlugin extends Yaf_Plugin_Abstract
         'Auth.Login.out',
     ];
 
-
     // 当前路由模块
     private $module;
     // 当前路由控制器
